@@ -14,6 +14,18 @@ public class MainMenu {
 	 
 	public void mainmenu() {
 		
+		String user = "admin";
+		String password = "1234";
+		
+		
+		System.out.print("Usuário: ");
+		user = sc.nextLine();
+		System.out.print("Senha: ");
+		password = sc.next();
+		
+		 if (user.equals("admin") && password.equals("1234")){    
+
+		
 		
 		while(true) {
 			
@@ -69,9 +81,15 @@ public class MainMenu {
 			case 6:
 				report();
 			}
-			
+
 		}
+	} else {
+		System.err.println("Usuário ou senha incorreta");
 	}
+
+}
+   
+	
 	
 	
 
@@ -127,9 +145,7 @@ public class MainMenu {
 		Product product = productCont.getProduct(sku);
 
 		
-		totalPrice = product.getSalePrice() * qtt;
-
-		System.out.println("O valor da compra é: " + totalPrice);
+		
 
 		System.out.println("Qual a forma de pagamento?");
 		for (PaymentsEnum p : EnumSet.allOf(PaymentsEnum.class)) {
@@ -140,15 +156,26 @@ public class MainMenu {
 		switch (paymentType) {
 		case "1":
 			getDebit();
+			totalPrice = product.getSalePrice() * qtt;
+			System.out.println("O valor da compra é: " + totalPrice);
 			break;
 		case "2":
 			getCredit();
+			
+			totalPrice = product.getSalePrice() * qtt;
+			Double percent = totalPrice * 0.15;
+			//totalPrice = totalPrice * 0.15;
+			System.out.println("O valor da compra é: " + percent);	
 			break;
 		case "3":
 			getPix();
+			totalPrice = product.getSalePrice() * qtt;
+			System.out.println("O valor da compra é: " + totalPrice);
 			break;
 		case "4":
 			getMoney();
+			totalPrice = product.getSalePrice() * qtt;
+			System.out.println("O valor da compra é: " + totalPrice);
 			break;
 		default:
 			System.out.println("Escolheu outro");
@@ -248,6 +275,7 @@ public class MainMenu {
 	}
 
 	private static void getCredit() {
+	
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Digite o n° do cartão");
 		Integer cardNumberCredit = sc.nextInt();
@@ -284,3 +312,4 @@ public class MainMenu {
 		
 	}
 }
+

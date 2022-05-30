@@ -7,7 +7,7 @@ import java.util.Map;
 public enum PaymentsEnum {
 	
 	DEBIT("1 - Débito"), 
-	CREDIT("2 - Crédito"), 
+	CREDIT("2 - Crédito" + 2.0), 
 	PIX("3 - PIX"), 
 	MONEY("4 - Dinheiro");
 
