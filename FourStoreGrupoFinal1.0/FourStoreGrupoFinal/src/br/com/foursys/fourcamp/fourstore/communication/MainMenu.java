@@ -144,6 +144,27 @@ public class MainMenu {
 		Integer qtt = sc2.nextInt();
 		Product product = productCont.getProduct(sku);
 
+		System.out.println("Adicionar CPF na nota?");
+		System.out.println("1 - Sim" + " " + "2 - Não");
+		int cpf = sc.nextInt();
+		if (cpf == 1) {
+			String return2 = " ";
+			System.out.println("Digite seu CPF: ");
+			Utils util = new Utils();
+			cpf2 = sc.next();
+			return2 = util.validateCPF(cpf2);
+			if (return2 == "Por favor digite um CPF de acordo com o padrão solicitado! ") {
+				System.out.println("Por favor digite um CPF de acordo com o padrão solicitado! ");
+			}
+			//else {
+				//Object return1 = productCont.saleProduct(sku, qtt, cpf2);
+				//System.out.println(return2);
+				//System.out.println(return1);
+			
+		 
+	//else {
+		//	Object return1 = productCont.saleProduct(sku, qtt, cpf2);
+		//	System.out.println(return1);
 		
 		
 
@@ -163,47 +184,30 @@ public class MainMenu {
 			getCredit();
 			
 			totalPrice = product.getSalePrice() * qtt;
-			Double percent = totalPrice * 0.15;
-			//totalPrice = totalPrice * 0.15;
-			System.out.println("O valor da compra é: " + percent);	
+			totalPrice = totalPrice + (totalPrice * 0.15);
+			System.out.println("O valor da compra é: " + totalPrice);	
 			break;
 		case "3":
 			getPix();
 			totalPrice = product.getSalePrice() * qtt;
+			totalPrice = totalPrice - (totalPrice * 0.15);
 			System.out.println("O valor da compra é: " + totalPrice);
 			break;
 		case "4":
 			getMoney();
 			totalPrice = product.getSalePrice() * qtt;
+			totalPrice = totalPrice - (totalPrice * 0.15);
 			System.out.println("O valor da compra é: " + totalPrice);
 			break;
 		default:
 			System.out.println("Escolheu outro");
 
 		}
-
-		System.out.println("Adicionar CPF na nota?");
-		System.out.println("1 - Sim" + " " + "2 - Não");
-		int cpf = sc.nextInt();
-		if (cpf == 1) {
-			String return2 = " ";
-			System.out.println("Digite seu CPF: ");
-			Utils util = new Utils();
-			cpf2 = sc.next();
-			return2 = util.validateCPF(cpf2);
-			if (return2 == "Por favor digite um CPF de acordo com o padrão solicitado! ") {
-				System.out.println("Por favor digite um CPF de acordo com o padrão solicitado! ");
-			} else {
-				Object return1 = productCont.saleProduct(sku, qtt, cpf2, paymentType);
-				System.out.println(return2);
-				System.out.println(return1);
-			}
-		} else {
-			Object return1 = productCont.saleProduct(sku, qtt, cpf2, paymentType);
-			System.out.println(return1);
 		}
 
 	}
+
+	
 	private static void searchBySku() {
 		Scanner sc2 = new Scanner(System.in);
 		 
