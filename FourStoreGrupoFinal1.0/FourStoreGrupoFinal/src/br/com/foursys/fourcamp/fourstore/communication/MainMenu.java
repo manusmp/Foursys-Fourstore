@@ -16,22 +16,22 @@ public class MainMenu {
 		
 		String user = "admin";
 		String password = "1234";
+		int login = 1;
 		
+		while(login == 1) {		
 		
 		System.out.print("Usuário: ");
 		user = sc.nextLine();
 		System.out.print("Senha: ");
-		password = sc.next();
+		password = sc.nextLine();
 		
-		 if (user.equals("admin") && password.equals("1234")){    
-
-		
+		 if (user.equals("admin") && password.equals("1234")){  		
 		
 		while(true) {
 			
 			System.out.println(
 				                  "\n ___________________________________"
-								+ "\n|     Bem Vindo ao FourStore        |" 
+								+ "\n|     Bem Vindo ao FourMusic        |" 
 								+ "\n|___________________________________|"
 								+ "\n|1 - Cadastrar produto              |" 
 								+ "\n|2 - Atualizar produto              |" 
@@ -86,10 +86,8 @@ public class MainMenu {
 	} else {
 		System.err.println("Usuário ou senha incorreta");
 	}
-
-}
-   
-	
+		}
+}	
 	
 	
 
@@ -137,36 +135,32 @@ public class MainMenu {
 		Scanner sc2 = new Scanner(System.in);
 		Double totalPrice = 0.0;
 		ProductController productCont = new ProductController();
-
+		
+		
+		
 		System.out.println("Digite o SKU do produto: ");
 		String sku = sc2.nextLine();
 		System.out.println("Digite a quantidade do item: ");
 		Integer qtt = sc2.nextInt();
-		Product product = productCont.getProduct(sku);
+		Product product = productCont.getProduct(sku);	
+		System.out.println("");
 
 		System.out.println("Adicionar CPF na nota?");
 		System.out.println("1 - Sim" + " " + "2 - Não");
 		int cpf = sc.nextInt();
 		if (cpf == 1) {
-			String return2 = " ";
+			boolean return2 = false;
+
+			while(!return2) {
 			System.out.println("Digite seu CPF: ");
 			Utils util = new Utils();
 			cpf2 = sc.next();
 			return2 = util.validateCPF(cpf2);
-			if (return2 == "Por favor digite um CPF de acordo com o padrão solicitado! ") {
+			if (!return2) {
 				System.out.println("Por favor digite um CPF de acordo com o padrão solicitado! ");
 			}
-			//else {
-				//Object return1 = productCont.saleProduct(sku, qtt, cpf2);
-				//System.out.println(return2);
-				//System.out.println(return1);
-			
-		 
-	//else {
-		//	Object return1 = productCont.saleProduct(sku, qtt, cpf2);
-		//	System.out.println(return1);
-		
-		
+		}
+	}
 
 		System.out.println("Qual a forma de pagamento?");
 		for (PaymentsEnum p : EnumSet.allOf(PaymentsEnum.class)) {
@@ -203,16 +197,17 @@ public class MainMenu {
 			System.out.println("Escolheu outro");
 
 		}
-		}
 
-	}
-
+		Object return1 = productCont.saleProduct(sku, qtt, cpf2, paymentType);
+		System.out.println(return1);
 	
+
+}
 	private static void searchBySku() {
 		Scanner sc2 = new Scanner(System.in);
 		 
 		ProductController productCont = new ProductController();
-		System.out.println("Qual o sku do produto");
+		System.out.println("Digite o SKU do produto: ");
 		String sku = sc2.nextLine();
 
 		Object return1 = productCont.searchBySku(sku);
@@ -263,21 +258,31 @@ public class MainMenu {
 	}
 	
 	private static void getDebit() {
+		
 		Scanner sc = new Scanner(System.in);
+		Utils util = new Utils();
+		boolean return2 = false;
+		while(!return2) {
 		System.out.println("Digite o n° do cartão");
-		Integer cardNumberDebit = sc.nextInt();
+		String cardNumberDebit = sc.next();
+		return2 = util.validateCard(cardNumberDebit);
+
+		if(util.validateCard(cardNumberDebit) == false) {
+			System.err.println("Número inválido");
+		}else {
 		System.out.println("Insira o cartão na maquineta 1- Senha 2- Aproximação ");
 		Integer option = sc.nextInt();
 		if (option == 1) {
 			System.out.println("Digite a senha");
-			Integer password = sc.nextInt();
+			Integer cardPassword = sc.nextInt();
 			System.out.println("Compra concluida com sucesso");
 		} else {
 			System.out.println("Aproxime o cartão");
 			System.out.println("Compra concluida com sucesso");
 		}
 	}
-
+}
+}
 	private static void getCredit() {
 	
 		Scanner sc = new Scanner(System.in);

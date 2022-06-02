@@ -4,18 +4,33 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
-	public static String validateCPF(String cpf) {
+	public static boolean validateCPF(String cpf) {
 
 		String regex = "\\b([0-9]{3})\\.([0-9]{3})\\.([0-9]{3})\\-([0-9]{2})";
 
-		String return1 = "";
+		boolean return1 = false;
 		Pattern padrao = Pattern.compile(regex);
 
 		Matcher match = padrao.matcher(cpf);
 		if(!match.find()) {
-			return1 = "Por favor digite um CPF de acordo com o padrão solicitado! ";
+			return1 = false;
 			} else {
-			return1 = "CPF: " + cpf + " \nDevidamente correto!";
+			return1 = true;
+			}
+			return return1;
+	}
+	public static boolean validateCard(String card) {
+
+		String regex = "\\b([0-9]{4})\\.([0-9]{4})\\.([0-9]{4})\\.([0-9]{4})";;
+
+		boolean return1 = false;
+		Pattern padrao = Pattern.compile(regex);
+
+		Matcher match = padrao.matcher(card);
+		if(!match.find()) {
+			return1 = false;
+			} else {
+			return1 = true;
 			}
 			return return1;
 	}
