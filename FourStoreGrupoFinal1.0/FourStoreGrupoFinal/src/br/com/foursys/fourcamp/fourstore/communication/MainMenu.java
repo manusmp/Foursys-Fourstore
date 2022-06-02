@@ -86,10 +86,8 @@ public class MainMenu {
 	} else {
 		System.err.println("Usuário ou senha incorreta");
 	}
-		}
-}	
-	
-	
+}
+}
 
 	private void report() {
 		System.out.println("Relatório de Vendas");	
@@ -157,7 +155,7 @@ public class MainMenu {
 			cpf2 = sc.next();
 			return2 = util.validateCPF(cpf2);
 			if (!return2) {
-				System.out.println("Por favor digite um CPF de acordo com o padrão solicitado! ");
+				System.err.println("CPF inválido");
 			}
 		}
 	}
@@ -238,73 +236,104 @@ public class MainMenu {
 		System.out.println(return1);
 	}
 	
-	private static void getPix() {
+	private static void getPix() {	
+	
+
 		Scanner sc = new Scanner(System.in);
 		Sale saleM = new Sale();
 		System.out.println("Digite a chave pix 1- Celular 2- Cpf");
 		Integer key = sc.nextInt();
-		if(key == 1) {
-			 sc.nextLine();
-			System.out.println("Digite o numero de telefone");
-			String telephone = sc.nextLine();
-			System.out.println("Pix realizado com sucesso");
-			
-		}else {
+		
+		switch (key) {
+		case 1: 
 			sc.nextLine();
-			System.out.println("Digite o cpf");
-			String cpf = sc.nextLine();
+			boolean return2 = false;
+			while(!return2) {
+			System.out.println("Digite o numero de telefone");
+			Utils util = new Utils();
+			String telephone = sc.nextLine();
+			return2 = util.validateTelephone(telephone);
 			System.out.println("Pix realizado com sucesso");
-		}
+			if (!return2) {
+				System.err.println("Telefone inválido");
+			}
+			}
+			break;
+		case 2:
+			sc.nextLine();
+			boolean return3 = false;
+			while(!return3) {
+			System.out.println("Digite o cpf");
+			Utils util = new Utils();
+			String cpf = sc.next();
+			return3 = util.validateCPF(cpf);
+			System.out.println("Pix realizado com sucesso");
+			if (!return3) {
+				System.err.println("CPF inválido");
+			}
+			}
+			
+			break;
+		
+
 	}
+}
+	
 	
 	private static void getDebit() {
 		
 		Scanner sc = new Scanner(System.in);
 		Utils util = new Utils();
 		boolean return2 = false;
-		while(!return2) {
-		System.out.println("Digite o n° do cartão");
-		String cardNumberDebit = sc.next();
-		return2 = util.validateCard(cardNumberDebit);
+		while (!return2) {
+			System.out.println("Digite o n° do cartão");
+			String cardNumberDebit = sc.next();
+			return2 = util.validateCard(cardNumberDebit);
 
-		if(util.validateCard(cardNumberDebit) == false) {
-			System.err.println("Número inválido");
-		}else {
-		System.out.println("Insira o cartão na maquineta 1- Senha 2- Aproximação ");
-		Integer option = sc.nextInt();
-		if (option == 1) {
-			System.out.println("Digite a senha");
-			Integer cardPassword = sc.nextInt();
-			System.out.println("Compra concluida com sucesso");
-		} else {
-			System.out.println("Aproxime o cartão");
-			System.out.println("Compra concluida com sucesso");
+			if (util.validateCard(cardNumberDebit) == false) {
+				System.err.println("Número inválido");
+			} else {
+				System.out.println("Insira o cartão na maquineta 1- Senha 2- Aproximação ");
+				Integer option = sc.nextInt();
+				if (option == 1) {
+					System.out.println("Digite a senha");
+					Integer cardPassword = sc.nextInt();
+					System.out.println("Compra concluida com sucesso");
+				} else {
+					System.out.println("Aproxime o cartão");
+					System.out.println("Compra concluida com sucesso");
+				}
+			}
 		}
 	}
-}
-}
 	private static void getCredit() {
 	
+
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Digite o n° do cartão");
-		Integer cardNumberCredit = sc.nextInt();
-		System.out.println("Insira o cartão na maquineta 1- Senha 2- Aproximação ");
-		Integer option = sc.nextInt();
-		if (option == 1) {
-			System.out.println("Deseja parcelar a compra? 1- SIM  2-NÃO");
-			Integer splitpay = sc.nextInt();
-			if (splitpay == 1) {
-				System.out.println("Parcelar em quantas vezes?");
-				Integer time = sc.nextInt();
-				System.out.println("Digite a senha");
-				Integer password = sc.nextInt();
-				System.out.println("Compra concluida com sucesso");
+		Utils util = new Utils();
+		boolean return2 = false;
+		while (!return2) {
+			System.out.println("Digite o n° do cartão");
+			String cardNumberDebit = sc.next();
+			return2 = util.validateCard(cardNumberDebit);
+
+			if (util.validateCard(cardNumberDebit) == false) {
+				System.err.println("Número inválido");
+			} else {
+				System.out.println("Insira o cartão na maquineta 1- Senha 2- Aproximação ");
+				Integer option = sc.nextInt();
+				if (option == 1) {
+					System.out.println("Digite a senha");
+					Integer cardPassword = sc.nextInt();
+					System.out.println("Compra concluida com sucesso");
+				} else {
+					System.out.println("Aproxime o cartão");
+					System.out.println("Compra concluida com sucesso");
+				}
 			}
-		} else {
-			System.out.println("Aproxime o cartão");
-			System.out.println("Compra concluida com sucesso");
 		}
 	}
+
 	private static void getMoney() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Irá precisar de troco? 1- SIM  2-NÃO ");

@@ -21,7 +21,7 @@ public class Utils {
 	}
 	public static boolean validateCard(String card) {
 
-		String regex = "\\b([0-9]{4})\\.([0-9]{4})\\.([0-9]{4})\\.([0-9]{4})";;
+		String regex = "\\b([0-9]{4})\\.([0-9]{4})\\.([0-9]{4})\\.([0-9]{4})";
 
 		boolean return1 = false;
 		Pattern padrao = Pattern.compile(regex);
@@ -33,5 +33,23 @@ public class Utils {
 			return1 = true;
 			}
 			return return1;
+	}
+
+
+	public static boolean validateTelephone(String tel) {
+
+		String regex = "(\\(?\\d{2}\\)?\\s)?(\\d{4,5}\\-\\d{4})";
+		
+
+		boolean return1 = false;
+		Pattern padrao = Pattern.compile(regex);
+
+		Matcher match = padrao.matcher(tel);
+		if (!match.find()) {
+			return1 = false;
+		} else {
+			return1 = true;
+		}
+		return return1;
 	}
 }
