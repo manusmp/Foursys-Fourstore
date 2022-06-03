@@ -236,48 +236,51 @@ public class MainMenu {
 		System.out.println(return1);
 	}
 	
-	private static void getPix() {	
-	
+	private static void getPix() {		
 
 		Scanner sc = new Scanner(System.in);
 		Sale saleM = new Sale();
 		System.out.println("Digite a chave pix 1- Celular 2- Cpf");
 		Integer key = sc.nextInt();
-		
+
 		switch (key) {
-		case 1: 
+		case 1:
 			sc.nextLine();
 			boolean return2 = false;
-			while(!return2) {
-			System.out.println("Digite o numero de telefone");
-			Utils util = new Utils();
-			String telephone = sc.nextLine();
-			return2 = util.validateTelephone(telephone);
-			System.out.println("Pix realizado com sucesso");
-			if (!return2) {
-				System.err.println("Telefone inválido");
-			}
+			while (!return2) {
+				System.out.println("Digite o numero de telefone");
+				Utils util = new Utils();
+				String telephone = sc.nextLine();
+				return2 = util.validateTelephone(telephone);
+				if (!return2) {
+					System.err.println("Telefone inválido");
+				} else {
+					System.out.println("Pix realizado com sucesso");
+
+				}
 			}
 			break;
 		case 2:
 			sc.nextLine();
 			boolean return3 = false;
-			while(!return3) {
-			System.out.println("Digite o cpf");
-			Utils util = new Utils();
-			String cpf = sc.next();
-			return3 = util.validateCPF(cpf);
-			System.out.println("Pix realizado com sucesso");
-			if (!return3) {
-				System.err.println("CPF inválido");
-			}
-			}
-			
-			break;
-		
+			while (!return3) {
+				System.out.println("Digite o cpf");
+				Utils util = new Utils();
+				String cpf = sc.next();
+				return3 = util.validateCPF(cpf);
+				System.out.println("Pix realizado com sucesso");
+				if (!return3) {
+					System.err.println("CPF inválido");
+				} else {
+					System.out.println("Pix realizado com sucesso");
 
+				}
+			}
+
+			break;
+
+		}
 	}
-}
 	
 	
 	private static void getDebit() {
