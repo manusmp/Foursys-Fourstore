@@ -1,0 +1,268 @@
+swagger: "2.0"
+info:
+  description: "This is a swagger document of Fourmusic"
+  version: "1.0.0"
+  title: "Swagger FourMusic"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "fourmusic.swagger.io"
+basePath: "/v2"
+tags:
+- name: "FourMusic"
+  description: "Everything about your FourMusic"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "store"
+  description: "Access to FourMusic"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+  /register:
+    post:
+      tags:
+      - "instruments"
+      summary: "Add a new instrument"
+      description: ""
+      operationId: "addInstrument"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        schema:
+          $ref: "#/definitions/register"
+        description: "Instrument to be registered to the store"
+        required: true
+      responses:
+        "200":
+          description: "Instrument registered!"
+        "400":
+          description: "Could not register product!"
+  /listAll:
+    get:
+      tags:
+      - "instruments"
+      summary: "Find instrument by status"
+      description: ""
+      operationId: "verifyListOfInstruments"
+      produces:
+      - "application/json"
+      parameters:
+        - name: "Inventory"
+          in: "query"
+          type: "array"
+          items: {}
+          description: "List of instruments in inventory"
+          required: true
+      responses:
+        "200":
+          description: "Show list"
+          schema:
+            $ref: "#/definitions/listAll"
+       
+        "400":
+          description: "Empty inventory"
+  /{sku}:
+    get:
+      tags:
+      - "instrument"
+      summary: "Find instruments by SKU"
+      description: "Returns the instrument"
+      operationId: "findBySku"
+      produces:
+      - "application/json"
+      parameters:
+        - name: "sku"
+          in: "path"
+          description: "Tags to filter by"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Show instrument by SKU"
+          schema:
+             $ref: "#/definitions/sku"
+        "400":
+          description: "Invalid SKU"
+  /addSkuQtt:
+    put:
+      tags:
+      - "instrument"
+      summary: "Add instrument by sku"
+      description: "Add instrument in inventory"
+      operationId: "addProduct"
+      produces:
+      - "application/json"
+      parameters:
+        - name: "quantity"
+          in: "query"
+          description: "Update quantity"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "200":
+          description: "Updated inventory"
+          schema:
+            $ref: "#/definitions/addSkuQtt"
+        "400":
+          description: "Invalid Sku"
+  /modifySku:
+    put:
+      tags:
+      - "instrument"
+      summary: "update price of product"
+      description: ""
+      operationId: "updatePrice"
+      produces:
+      - "application/json"
+      parameters:
+        - name: "salePrice"
+          in: "query"
+          description: ""
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "200":
+          description: "Updated price"
+          schema:
+             $ref: "#/definitions/modifySku"
+  /saleSkuQtt:
+    post:
+      tags:
+      - "sale"
+      summary: "Sale instruments"
+      description: ""
+      operationId: "saleProduct"
+      produces:
+      - "application/json"
+      parameters:
+        - name: "cpf"
+          in: "body"
+          description: "enter cpf"
+          required: true
+          schema:
+            $ref: "#/definitions/saleSkuQtt"
+        - name: "paymentType"
+          in: "query"
+          type: "string"
+          description: "enter paymentType"
+          required: true
+      responses:
+        "200":
+          description: "Sucessful sale"
+        "400":
+          description: "Unrealized sale"
+  /report:
+    get:
+      tags:
+      - "sale"
+      summary: "returnProductsSold"
+      description: ""
+      operationId: "returnSale"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "return product sale"
+        required: true
+        schema:
+          $ref: "#/definitions/report"
+      responses:
+        "200":
+          description: "return product"
+          
+definitions:
+  register:
+    type: "object"
+    required:
+    - "sku"
+    - "qtt"
+    - "originPrice"
+    - "salePrice"
+    properties:
+      sku:
+        type: "string"
+      qtt:
+        type: "integer"
+        format: "int64"
+      originPrice:
+        type: "number"
+      salePrice:
+        type: "number"
+  listAll:
+    type: "object"
+    required: 
+      - "sku"
+      - "qtt"
+      - "originPrice"
+      - "salePrice"
+    properties:
+     sku:
+        type: "string"
+  sku:
+    type: "object"
+    required:
+    - "sku"
+    properties:
+      sku:
+        type: "string"
+  addSkuQtt:
+    type: "object"
+    required: 
+    - "sku"
+    - "qtt"
+    properties:
+      sku:
+        type: "string"
+      qtt:
+        type: "integer"
+        format: "int16"
+  modifySku:
+    type: "object"
+    required:
+    - "sku"
+    - "salePrice"
+    properties:
+      sku:
+        type: "string"
+      salePrice:
+        type: "number"
+  saleSkuQtt:
+    type: "object"
+    required:
+    - "sku"
+    - "qtt"
+    - "cpf"
+    - "paymentType"
+    properties:
+      sku:
+        type: "string"
+      qtt:
+        type: "integer"
+        format: "int16"
+      cpf: 
+        type: "string"
+      paymentType:
+        type: "string"
+  report:
+    type: "object"
+    
+  
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
